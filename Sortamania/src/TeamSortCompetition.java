@@ -1,4 +1,5 @@
-
+import java.util.Arrays;
+import java.util.Random;
 public class TeamSortCompetition {
 	public static void main (String[] args)
 	{
@@ -13,8 +14,14 @@ public class TeamSortCompetition {
 		long totalTime = endTime - startTime;
 		System.out.println("Time Taken in nanoseconds: " + totalTime);
 		
-		
-		
+		String [] TenThousandStrings = new String [10000];
+		TenThousandStrings = generateRandomWords(10000);
+		String query = "axbwc";
+		long startTime1 = System.nanoTime();
+		System.out.print(challengeTwo(TenThousandStrings, query));
+		long endTime1 = System.nanoTime();
+		long totalTime1 = endTime1 - startTime1;
+		System.out.println("Time Taken in nanoseconds: " + totalTime1);
 	}
 	public static double challengeOne(int[] arr)
 	{
@@ -53,24 +60,54 @@ public class TeamSortCompetition {
 	}
 	public static int challengeTwo(String[] arr, String query)
 	{
-		boolean swapped=true;
-		while(swapped)
-		{
-			int counter=0;
-			for(int i=0;i<arr.length-1;i++)
-			{ 
-				if(arr[i].compareTo(arr[i+1])>0)
-				{
-					swapstring(arr,i+1,i);
-					counter++;
-				}
-			}
-			if(counter==0)
-			{
-				swapped=false;
-			}
-		}		
+		arr = mergeSort(arr);
 		return binarySearch(arr, query);
+	}
+	public static String[] merge(String[] list1, String[] list2)
+	{
+		int newlist = 0;
+		int newlist2 = 0;
+		int newlist3 = 0;
+		String[] newarray = new String[list1.length + list2.length];
+		while(newlist < list1.length || newlist2 < list2.length)
+		{
+			if (newlist == list1.length)
+			{
+				newarray[newlist3] = list2[newlist2];
+				newlist2++;
+			}
+			else if (newlist2 == list2.length)
+			{
+				newarray[newlist3] = list1[newlist];
+				newlist++;
+			}
+			else if (list1[newlist].compareTo(list2[newlist2]) < 0)
+			{
+				newarray[newlist3] = list1[newlist];
+				newlist++;
+			}
+			else 
+			{
+				newarray[newlist3] = list2[newlist2];
+				newlist2++;
+			}
+			newlist3++;
+		}
+		return newarray;
+	}
+	public static String[] mergeSort(String[] list)
+	{
+		if (list.length <= 1) 
+		{
+			return list;
+		}
+		else
+		{
+			int x=list.length/2;
+			String[] temp1 = Arrays.copyOfRange(list,0,x);
+			String[] temp2 = Arrays.copyOfRange(list,x,list.length);
+			return merge(mergeSort(temp1),mergeSort(temp2));
+		}
 	}
 	public static int binarySearch(String[] arr, String query) {
 	    int low = 0;
@@ -91,11 +128,49 @@ public class TeamSortCompetition {
 
 	    return -1;
 	}
+	public static void printArraystring(String[] arr)
+	{
+		for(int i=0;i<arr.length-1;i++)
+		{
+			System.out.print(arr[i]+",");
+		}
+		System.out.print(arr[arr.length-1]);
+	}
 	public static void swapstring(String[]arr,int i,int j)
 	{
 		String x = arr[i];
 		arr[i] = arr[j];
 		arr[j] = x;
 	}
-	
+	public static String[] generateRandomWords(int numberOfWords)
+	{
+	    String[] randomStrings = new String[numberOfWords];
+	    Random random = new Random();
+	    for(int i = 0; i < numberOfWords; i++)
+	    {
+	        char[] word = new char[5];
+	        for(int j = 0; j < word.length; j++)
+	        {
+	            word[j] = (char)('a' + random.nextInt(26));
+	        }
+	        randomStrings[i] = new String(word);
+	    }
+	    return randomStrings;
+	}
+	public static double challengeThree(int[] arr)
+	{
+		double median = 0;
+		for(int i=0;i<arr.length;i++)
+		{
+			for (int j = i; j > 0; j--)	
+			{
+				if(arr[j] < arr[j-1])
+				{
+					swap(arr,j,j-1);
+				}
+			}
+		}
+		median = getmedian(arr);
+		return median;
+	}
 }
