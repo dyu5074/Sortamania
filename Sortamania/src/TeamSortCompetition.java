@@ -12,21 +12,24 @@ public class TeamSortCompetition {
 		long endTime = System.nanoTime();
 		long totalTime = endTime - startTime;
 		System.out.println("Time Taken in nanoseconds: " + totalTime);
+		
+		
+		
 	}
-	public static double challengeOne(int[] list1)
+	public static double challengeOne(int[] arr)
 	{
 		double median = 0;
-		for(int i=0;i<list1.length;i++)
+		for(int i=0;i<arr.length;i++)
 		{
 			for (int j = i; j > 0; j--)	
 			{
-				if(list1[j] < list1[j-1])
+				if(arr[j] < arr[j-1])
 				{
-					swap(list1,j,j-1);
+					swap(arr,j,j-1);
 				}
 			}
 		}
-		median = getmedian(list1);
+		median = getmedian(arr);
 		return median;
 	}
 	public static void swap(int[]arr,int i,int j)
@@ -35,30 +38,30 @@ public class TeamSortCompetition {
 		arr[i] = arr[j];
 		arr[j] = x;
 	}
-	public static double getmedian(int[] list1)
+	public static double getmedian(int[] arr)
 	{
 		double median = 0;
-		if (list1.length % 2 == 1)
+		if (arr.length % 2 == 1)
 		{
-			median = (double)list1[list1.length/2];
+			median = (double)arr[arr.length/2];
 		}
 		else
 		{
-			median = ((double)list1[list1.length/2] + (double)list1[(list1.length/2)-1])/2;
+			median = ((double)arr[arr.length/2] + (double)arr[(arr.length/2)-1])/2;
 		}
 		return median;
 	}
-	public static int challengeTwo(String[] list1, String find)
+	public static int challengeTwo(String[] arr, String query)
 	{
 		boolean swapped=true;
 		while(swapped)
 		{
 			int counter=0;
-			for(int i=0;i<list1.length-1;i++)
+			for(int i=0;i<arr.length-1;i++)
 			{ 
-				if(list1[i].compareTo(list1[i+1])>0)
+				if(arr[i].compareTo(arr[i+1])>0)
 				{
-					swapstring(list1,i+1,i);
+					swapstring(arr,i+1,i);
 					counter++;
 				}
 			}
@@ -66,7 +69,27 @@ public class TeamSortCompetition {
 			{
 				swapped=false;
 			}
-		}
+		}		
+		return binarySearch(arr, query);
+	}
+	public static int binarySearch(String[] arr, String query) {
+	    int low = 0;
+	    int high = arr.length - 1;
+	    int mid;
+
+	    while (low <= high) {
+	        mid = (low + high) / 2;
+
+	        if (arr[mid].compareTo(query) < 0) {
+	            low = mid + 1;
+	        } else if (arr[mid].compareTo(query) > 0) {
+	            high = mid - 1;
+	        } else {
+	            return mid;
+	        }
+	    }
+
+	    return -1;
 	}
 	public static void swapstring(String[]arr,int i,int j)
 	{
@@ -74,4 +97,5 @@ public class TeamSortCompetition {
 		arr[i] = arr[j];
 		arr[j] = x;
 	}
+	
 }
