@@ -22,6 +22,21 @@ public class TeamSortCompetition {
 		long endTime1 = System.nanoTime();
 		long totalTime1 = endTime1 - startTime1;
 		System.out.println("Time Taken in nanoseconds: " + totalTime1);
+		
+		int[][] arr1 = new int[10000][10000];
+
+	    for (int x = 0; x < 10000; x++) {
+	        for (int y = 0; y < 10000; y++) {
+	            arr1[x][y] = (int) (Math.random () * 1000);;
+	        }   
+	    } 
+	    
+		long startTime3 = System.nanoTime();
+		System.out.print(challengeFour(arr1));
+		long endTime3 = System.nanoTime();
+		long totalTime3 = endTime3 - startTime3;
+		System.out.println("Time Taken in nanoseconds: " + totalTime3);
+	
 	}
 	public static double challengeOne(int[] arr)
 	{
@@ -38,6 +53,38 @@ public class TeamSortCompetition {
 		}
 		median = getmedian(arr);
 		return median;
+	}
+	public static int challengeTwo(String[] arr, String query)
+	{
+		arr = mergeSort(arr);
+		return binarySearch(arr, query);
+	}
+	public static double challengeThree(int[] arr)
+	{
+		double median = 0;
+		for(int i=0;i<arr.length;i++)
+		{
+			for (int j = i; j > 0; j--)	
+			{
+				if(arr[j] < arr[j-1])
+				{
+					swap(arr,j,j-1);
+				}
+			}
+		}
+		median = getmedian(arr);
+		return median;
+	}
+	public static double challengeFour(int[][] arr)
+	{
+		double[] medval= new double[arr.length];
+		int i=0;
+		for(int j=0; j<arr.length;j++)
+		{
+			medval[i]=challengeOne(arr[j]);
+			i++;
+		}
+		return getdoublemed(medval);
 	}
 	public static void swap(int[]arr,int i,int j)
 	{
@@ -57,11 +104,6 @@ public class TeamSortCompetition {
 			median = ((double)arr[arr.length/2] + (double)arr[(arr.length/2)-1])/2;
 		}
 		return median;
-	}
-	public static int challengeTwo(String[] arr, String query)
-	{
-		arr = mergeSort(arr);
-		return binarySearch(arr, query);
 	}
 	public static String[] merge(String[] list1, String[] list2)
 	{
@@ -157,20 +199,17 @@ public class TeamSortCompetition {
 	    }
 	    return randomStrings;
 	}
-	public static double challengeThree(int[] arr)
+	public static double getdoublemed(double[] arr)
 	{
 		double median = 0;
-		for(int i=0;i<arr.length;i++)
+		if (arr.length % 2 == 1)
 		{
-			for (int j = i; j > 0; j--)	
-			{
-				if(arr[j] < arr[j-1])
-				{
-					swap(arr,j,j-1);
-				}
-			}
+			median = (double)arr[arr.length/2];
 		}
-		median = getmedian(arr);
+		else
+		{
+			median = ((double)arr[arr.length/2] + (double)arr[(arr.length/2)-1])/2;
+		}
 		return median;
 	}
 }
