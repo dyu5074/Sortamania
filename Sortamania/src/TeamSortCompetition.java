@@ -38,9 +38,9 @@ public class TeamSortCompetition {
 		System.out.println("Time Taken in nanoseconds: " + totalTime3);
 	
 	}
-	public static double challengeOne(int[] arr)
+	public static int challengeOne(int[] arr)
 	{
-		double median = 0;
+		int median = 0;
 		for(int i=0;i<arr.length;i++)
 		{
 			for (int j = i; j > 0; j--)	
@@ -59,9 +59,9 @@ public class TeamSortCompetition {
 		arr = mergeSort(arr);
 		return binarySearch(arr, query);
 	}
-	public static double challengeThree(int[] arr)
+	public static int challengeThree(int[] arr)
 	{
-		double median = 0;
+		int median = 0;
 		for(int i=0;i<arr.length;i++)
 		{
 			for (int j = i; j > 0; j--)	
@@ -93,16 +93,16 @@ public class TeamSortCompetition {
 		arr[i] = arr[j];
 		arr[j] = x;
 	}
-	public static double getmedian(int[] arr)
+	public static int getmedian(int[] arr)
 	{
-		double median = 0;
+		int median = 0;
 		if (arr.length % 2 == 1)
 		{
-			median = (double)arr[arr.length/2];
+			median = arr[arr.length/2];
 		}
 		else
 		{
-			median = ((double)arr[arr.length/2] + (double)arr[(arr.length/2)-1])/2;
+			median = (arr[arr.length/2] + arr[(arr.length/2)-1])/2;
 		}
 		return median;
 	}
