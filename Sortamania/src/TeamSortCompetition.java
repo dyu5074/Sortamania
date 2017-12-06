@@ -6,7 +6,7 @@ public class TeamSortCompetition {
 		int [] newarray = {14,6,9,2,8,9,11,5,24,10};
 		int [] inputTenThousand = new int[10000];              
 	    for (int a = 0; a < inputTenThousand.length; a++) {
-	       inputTenThousand [a] = (int) (Math.random () * 1000);
+	       inputTenThousand [a] = (int) (Math.random () * 10000);
 	    }
 		long startTime = System.nanoTime();
 		System.out.print(challengeOne(newarray));
@@ -84,6 +84,7 @@ public class TeamSortCompetition {
 			medval[i]=challengeOne(arr[j]);
 			i++;
 		}
+		
 		return getdoublemed(medval);
 	}
 	public static void swap(int[]arr,int i,int j)
